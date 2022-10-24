@@ -1,4 +1,7 @@
 import {useState} from 'react'; 
+import Backdrop from './Backdrop';
+import Modal from './Modal';
+
 // parameter in react is called props , props is js 
 // object that will take the attributes that it is assigned 
 // key value pairs 
@@ -11,7 +14,7 @@ import {useState} from 'react';
 // case we will use react library called useState which 
 // are use hooks. 
 // useState returns an array with two elements 
-// first element in the array(modalIsOpen) is inital  value
+// first element in the array(modalIsOpen) is inital  value/current state
 // which it was set. While the second element setModalIsOpen 
 // can be the function that changes or does something with 
 // first element 
@@ -22,8 +25,10 @@ function Todo(props){
  const [modalIsOpen,setModalIsOpen] =  useState(false); 
 
 function deleteHandler(){
-<div className = {props.className} style={{display: "none"}}>
-</div>
+    setModalIsOpen(true); 
+}
+function closeModalHandler(){
+    setModalIsOpen(false); 
 }
 
 return(
@@ -32,6 +37,9 @@ return(
         <div className="actions">   
         <button className="btn" onClick={deleteHandler}>Delete</button>
         </div>
+        
+       {modalIsOpen ? <Modal onCancel={closeModalHandler} onConfirm={closeModalHandler}/> : null}
+       {modalIsOpen ? <Backdrop onClickBackDrop={closeModalHandler}/> : null}
     </div>
 );
 
